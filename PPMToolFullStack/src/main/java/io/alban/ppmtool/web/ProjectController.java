@@ -3,6 +3,7 @@ package io.alban.ppmtool.web;
 
 import javax.validation.Valid;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,5 +60,8 @@ public class ProjectController {
 		
 		return new ResponseEntity<String>("Project with ID: '" + projectId + "' was deleted", HttpStatus.OK);
 	}
+	
+	// to update a project you just need to insert value of that id row 
+	// in our case in Postman we write { "id":1, ..... }
 	
 }
