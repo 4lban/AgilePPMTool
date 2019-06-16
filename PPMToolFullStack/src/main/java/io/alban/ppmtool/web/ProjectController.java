@@ -1,6 +1,5 @@
 package io.alban.ppmtool.web;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,42 +26,42 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@Autowired
 	private MapValidationErrorService mapValidationErrorService;
-	
+
 	@PostMapping("")
-	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
-		
+	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
+
 		ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-		if(errorMap!=null) 
+		if (errorMap != null)
 			return errorMap;
-		
+
 		Project project1 = projectService.saveOrUpdateProject(project);
 		return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
-	} 
-	
+	}
+
 	@GetMapping("/{projectId}")
-	public ResponseEntity<?> getProjectById(@PathVariable String projectId){
-		
+	public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
+
 		Project project = projectService.findProjectByIdentifier(projectId);
-		
+
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all")
-	public Iterable<Project> getAllProjects(){
+	public Iterable<Project> getAllProjects() {
 		return projectService.findAllProjects();
 	}
-	
+
 	@DeleteMapping("/{projectId}")
-	public ResponseEntity<?> deleteProject(@PathVariable String projectId){
+	public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
 		projectService.deletProjectByIdentifier(projectId);
-		
+
 		return new ResponseEntity<String>("Project with ID: '" + projectId + "' was deleted", HttpStatus.OK);
 	}
-	
-	// to update a project you just need to insert value of that id row 
+
+	// to update a project you just need to insert value of that id row
 	// in our case in Postman we write { "id":1, ..... }
-	
+
 }
