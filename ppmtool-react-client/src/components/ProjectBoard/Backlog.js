@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProjectTask from "./ProjectTasks/ProjectTask";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 class Backlog extends Component {
   render() {
@@ -7,6 +8,27 @@ class Backlog extends Component {
     const tasks = project_tasks_prop.map(project_task => (
       <ProjectTask key={project_task.id} project_task={project_task} />
     ));
+
+    let todoItems = [];
+    let inProgresItems = [];
+    let doneItems = [];
+
+    for (let i = 0; i < tasks.length; i++) {
+      console.log(tasks[i]);
+
+      if (tasks[i].props.project_task.status === "TO_DO") {
+        todoItems.push(tasks[i]);
+      }
+
+      if (tasks[i].props.project_task.status === "IN_PROGRESS") {
+        inProgresItems.push(tasks[i]);
+      }
+
+      if (tasks[i].props.project_task.status === "DONE") {
+        doneItems.push(tasks[i]);
+      }
+    }
+
     return (
       <div className="container">
         <div className="row">
@@ -16,7 +38,7 @@ class Backlog extends Component {
                 <h3>TO DO</h3>
               </div>
             </div>
-            {tasks}
+            {todoItems}
             {
               // insert tasks here
             }
@@ -27,10 +49,7 @@ class Backlog extends Component {
                 <h3>In Progress</h3>
               </div>
             </div>
-            {
-              // <!-- SAMPLE PROJECT TASK STARTS HERE -->
-              // <!-- SAMPLE PROJECT TASK ENDS HERE -->
-            }
+            {inProgresItems}
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
@@ -38,10 +57,7 @@ class Backlog extends Component {
                 <h3>Done</h3>
               </div>
             </div>
-            {
-              // <!-- SAMPLE PROJECT TASK STARTS HERE -->
-              // <!-- SAMPLE PROJECT TASK ENDS HERE -->
-            }
+            {doneItems}
           </div>
         </div>
       </div>
