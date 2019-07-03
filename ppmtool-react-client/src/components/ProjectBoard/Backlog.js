@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ProjectTask from "./ProjectTasks/ProjectTask";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 class Backlog extends Component {
   render() {

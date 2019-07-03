@@ -60,7 +60,7 @@ public class ProjectTaskService {
 	public Iterable<ProjectTask> findBacklogById(String id) {
 		Project project = projectRepository.findByProjectIdentifier(id);
 		if (project == null) {
-			throw new ProjectNotFoundException("Doesn't exist any backlog/task with project ID: '" + id + "'");
+			throw new ProjectNotFoundException("Project with ID: '" + id + "' does not exist");
 		}
 		return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
 	}
@@ -70,7 +70,7 @@ public class ProjectTaskService {
 		// make sure we are searching on an existing backlog
 		Backlog backlog = backlogRepository.findByProjectIdentifier(backlog_id);
 		if (backlog == null) {
-			throw new ProjectNotFoundException("Doesn't exist any backlog/task with project ID: '" + backlog_id + "'");
+			throw new ProjectNotFoundException("Project with ID: '" + backlog_id + "' does not exist");
 
 		}
 
